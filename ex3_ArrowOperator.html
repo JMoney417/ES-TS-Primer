@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>ES6 - Ex3 | Arrow Operator </title>
+  <script>
+  (function() {
+  
+//Arrow Operator
+class Toppings {
+  constructor(toppings) {
+    this.toppings = Array.isArray(toppings) ? toppings : [];
+  }
+  outputList() {
+    this.toppings.forEach(
+        (topping, i) => {console.log(topping, (i+1) + '/' + this.toppings.length)}  // `this` works! }
+    )
+  }
+}
+
+
+//Without Arrow Operator
+/*
+
+class Toppings {
+  constructor(toppings) {
+    this.toppings = Array.isArray(toppings) ? toppings : [];
+  }
+  outputList() {
+    this.toppings.forEach(
+        function(topping, i) {
+         console.log(topping, (i+1) + '/' + this.toppings.length);  // `this` will be undefined
+        }
+    );
+  }
+}
+*/
+
+var ctrl = new Toppings(['cheese', 'lettuce']);
+ctrl.outputList();
+
+
+	})();
+  </script>
+</head>
+<body>
+
+</body>
+</html>

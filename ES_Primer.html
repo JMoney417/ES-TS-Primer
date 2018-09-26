@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>ES6 - Ex1 | Hello World!</title>
+ <script>
+////////////////////////////////
+//    Classes and Objects    //
+//////////////////////////////
+  (function() {
+	  class HelloES6{
+
+			// This is the constructor.
+		  constructor() {
+		    this.greeting="Hello"//creates a class level variable called greeting
+		  }
+		
+			// This is a method.
+		  greet() {
+		    //Notice back ticks and templates
+				this.greeting = `${this.greeting} World!! I may have  as many
+												lines as I
+												want to have!!`
+		    console.log(this.greeting);
+		    
+		  }
+		}
+	  var test = new HelloES6();
+		test.greet();
+
+	})();
+
+////////////////////////////////
+//       use strict          //
+//////////////////////////////
+ (function() {
+	  //Toggle the below to see the behavior
+	  'use strict';
+
+		//1. Variable usage without declaration
+		//2. Future Proofed Keywords
+		//3. You cannout delete functions
+		//4. Duplicately named parameters
+		//5. this Usage
+
+	  var myObject = {
+	    foo: 'bar',
+	    someMethod: function() {
+				console.log("Test Print")
+	      console.log(this);
+	    }
+	  };
+
+	  function someMethod2() {
+	    console.log(this);
+	  }
+
+	  myObject.someMethod();//success
+	  someMethod2();//undefined
+	  var test2 = myObject.someMethod;
+	  test2();//undefined
+	  
+		var test = myObject.someMethod.bind(myObject);
+	  test();//success
+
+	})//();
+
+////////////////////////////////
+//      Arrow Functions      //
+//////////////////////////////
+ (function() {
+  
+	//Arrow Operator
+	class Toppings {
+		constructor(toppings) {
+			this.toppings = Array.isArray(toppings) ? toppings : [];
+		}
+		outputList() {
+			this.toppings.forEach(
+					(topping, i) => {console.log(topping, (i+1) + '/' + this.toppings.length)}  // `this` works! }
+			)
+		}
+	}
+	
+	
+	//Without Arrow Operator
+	/*
+	
+	class Toppings {
+		constructor(toppings) {
+			this.toppings = Array.isArray(toppings) ? toppings : [];
+		}
+		outputList() {
+			this.toppings.forEach(
+					function(topping, i) {
+					 console.log(topping, (i+1) + '/' + this.toppings.length);  // `this` will be undefined
+					}
+			);
+		}
+	}
+	*/
+	
+	var ctrl = new Toppings(['cheese', 'lettuce']);
+	ctrl.outputList();
+	
+	
+	})//();
+
+
+////////////////////////////////
+//      Destructuring        //
+//////////////////////////////
+(function() {
+//Eg 1 
+let foo = ['one', 'two', 'three'];
+
+//let one = foo[0];
+//let two = foo[1];
+//let three = foo[2];
+let [one, two, three] = foo;
+
+
+console.log(one); // 'one'
+
+//Eg 2
+let myModule = {
+    drawSquare: function drawSquare(length) { /* implementation */ console.log('['+length+']');},
+    drawCircle: function drawCircle(radius) { /* implementation */ console.log('('+radius+')');},
+    drawText: function drawText(text) { /* implementation */console.log('hello from MyModule'); },
+};
+
+//var drawSquare = myModule.drawSquare;
+let {drawSquare, drawText} = myModule;
+
+console.log(drawSquare(5));
+console.log(drawText('hello'));
+
+//Ex 3 - default parameters
+let jane = { firstName: 'Jane', lastName: 'Doe'};
+let john = { firstName: 'John', lastName: 'Doe', middleName: 'Smith' }
+function sayName({firstName, lastName, middleName = 'N/A'}) {
+  console.log(`Hello ${firstName} ${middleName} ${lastName}`)  
+}
+
+sayName(jane) // -> Hello Jane N/A Doe
+sayName(john) // -> Helo John Smith Doe
+
+	})//();
+
+
+  //////////////////////////////
+ //      Inheritance         //
+//////////////////////////////
+(function() {
+  //With ES 5 / 6
+
+// Base Class : ES6
+class Bird {
+  constructor(weight, height) {
+    this.weight = weight;
+    this.height = height;
+  }
+
+  walk() {
+    console.log('walk!');
+  }
+}
+
+// Subclass
+class Penguin extends Bird {
+  constructor(weight, height) {
+    super(weight, height);
+  }
+
+  swim() {
+    console.log('swim!');
+  }
+}
+
+// Penguin object
+let penguin = new Penguin();
+penguin.walk(); //walk!
+penguin.swim(); //swim!
+
+//Legacy
+/*
+
+// JavaScript classical inheritance.
+
+// Bird constructor
+function Bird(weight, height) {
+  this.weight = weight;
+  this.height = height;
+}
+
+// Add method to Bird prototype.
+Bird.prototype.walk = function() {
+  console.log("walk!");
+};
+
+// Penguin constructor.
+function Penguin(weight, height) {
+   Bird.call(this, weight, height);
+}
+
+// Prototypal inheritance (Penguin is-a Bird).
+Penguin.prototype = Object.create( Bird.prototype );
+Penguin.prototype.constructor = Penguin;
+
+// Add method to Penguin prototype.
+Penguin.prototype.swim = function() {
+  console.log("swim!");
+};
+
+// Create a Penguin object.
+let penguin = new Penguin(50,10);
+
+// Calls method on Bird, since it's not defined by Penguin.
+penguin.walk(); // walk!
+
+// Calls method on Penguin.
+penguin.swim(); // swim!
+
+*/
+
+
+
+})//();
+
+
+  //////////////////////////////
+ //   variable declaration   //
+//////////////////////////////
+  (function() {
+	  //Block 1
+	  {
+			var i;
+		}
+		
+	  
+	  for (i = 0; i < 10; i += 1) {
+	    var j = i;
+	    let k = i;
+	  }
+	  console.log(j); // 9
+	  console.log(k); // undefined
+	  
+	  
+	  //Block 2
+	  const myName = 'pat';
+	  let yourName = 'jo';
+	  yourName = 'sam'; // assigns
+	  myName = 'jan';   // error
+
+	  //Block 3
+	  const person = {
+  		name: 'Tammy'
+		};
+
+		person.name = 'Harrier'; // OK, name property changed.
+		person = null;          // "TypeError: Assignment to constant variable.
+
+	})//();
+
+
+  //////////////////////////////
+ //Spread and Rest Operators //
+//////////////////////////////
+	(function() {
+		//Spread Usage
+		const add = (a, b) => a + b;
+		let args = [ 3, 5 ];
+		add(...args); // same as `add(args[0], args[1])`, or `add.apply(null, args)	  
+		let cde = [ 'c', 'd', 'e' ];
+		let scale = [ 'a', 'b', ...cde, 'f', 'g' ]; // ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+		let mapABC = {
+			a : 5,
+			b : 6,
+			c : 3
+		};
+
+		//Rest Usage
+		function addSimple(a, b) {
+			return a + b;
+		}
+
+		function addRest(...numbers) {
+			return numbers[0] + numbers[1]+numbers[2];
+		}
+
+		addSimple(3, 2); // 5
+		addRest(1, 2, 3); // 5
+
+		// or in es6 style:
+		const addEs6 =  (...numbers) => numbers.reduce((p, c) => p + c, 0);
+
+		addEs6(1, 2, 3); // 6
+
+	})();
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>
+

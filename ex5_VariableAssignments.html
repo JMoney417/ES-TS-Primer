@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>ES6 - Ex5 | Variable Assignments </title>
+  <script>
+  (function() {
+	  //Block 1
+	  {
+			var i;
+		}
+		
+	  
+	  for (i = 0; i < 10; i += 1) {
+	    var j = i;
+	    let k = i;
+	  }
+	  console.log(j); // 9
+	  console.log(k); // undefined
+	  
+	  
+	  //Block 2
+	  const myName = 'pat';
+	  let yourName = 'jo';
+	  yourName = 'sam'; // assigns
+	  myName = 'jan';   // error
+
+	  //Block 3
+	  const person = {
+  		name: 'Tammy'
+		};
+
+		person.name = 'Harrier'; // OK, name property changed.
+		person = null;          // "TypeError: Assignment to constant variable.
+
+	})();
+  </script>
+</head>
+<body>
+
+</body>
+</html>
